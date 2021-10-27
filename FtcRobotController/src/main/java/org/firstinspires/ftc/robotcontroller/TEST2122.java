@@ -15,7 +15,8 @@ public class TEST2122 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
-
+    private DcMotor leftDriveF = null;
+    private DcMotor rightDriveF = null;
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -26,12 +27,15 @@ public class TEST2122 extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        leftDriveF  = hardwareMap.get(DcMotor.class, "left_driveF");
+        rightDriveF = hardwareMap.get(DcMotor.class, "right_driveF");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
-
+        leftDriveF.setDirection(DcMotor.Direction.FORWARD);
+        rightDriveF.setDirection(DcMotor.Direction.REVERSE);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -52,7 +56,8 @@ public class TEST2122 extends LinearOpMode {
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
-
+            leftDriveF.setPower(leftPower);
+            rightDriveF.setPower(rightPower);
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
